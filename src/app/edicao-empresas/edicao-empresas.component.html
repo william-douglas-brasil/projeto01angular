@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Edição de Empresa</h5>
+        <p class="card-text">Utilize os campos abaixo
+            para alterar os dados da empresa.</p>
+        <hr />
+
+        <div *ngIf="mensagem_sucesso" class="alert alert-success">
+            Sucesso: <strong>{{mensagem_sucesso}}</strong>
+            </div>
+            <div *ngIf="mensagem_erro" class="alert alert-danger">
+            Erro: <strong>{{mensagem_erro}}</strong>
+            </div>
+
+        <form [formGroup]="formEdicao" (ngSubmit)="onSubmit()">
+            <!-- campo oculto -->
+            <input type="hidden" formControlName="idEmpresa" />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Nome fantasia da empresa:</label>
+                    <input type="text" class="form-control" formControlName="nomeFantasia" />
+                    <div class="text-danger" *ngIf="form.nomeFantasia.touched
+&& form.nomeFantasia.invalid">
+                        <div *ngIf="form.nomeFantasia.errors.required">
+                            Por favor, informe o nome
+                            fantasia da empresa.
+                        </div>
+                        <div *ngIf="form.nomeFantasia.errors.minlength">
+                            Por favor, informe no mínimo 10 caracteres.
+                        </div>
+                        <div *ngIf="form.nomeFantasia.errors.maxlength">
+                            Por favor, informe no máximo 150 caracteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Razão social:</label>
+                    <input type="text" class="form-control" formControlName="razaoSocial" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label>CNPJ:</label>
+                    <input type="text" class="form-control" formControlName="cnpj" readonly />
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <input type="submit" value="Salvar Alterações" class="btn btn-primary"
+                        [disabled]="!formEdicao.valid" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
